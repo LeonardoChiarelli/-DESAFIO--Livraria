@@ -1,6 +1,7 @@
 package br.com.LeoChiarelli.Livraria.infrastructure.author.gateways;
 
 import br.com.LeoChiarelli.Livraria.domain.author.Author;
+import br.com.LeoChiarelli.Livraria.domain.book.Book;
 import br.com.LeoChiarelli.Livraria.infrastructure.author.AuthorEntity;
 import br.com.LeoChiarelli.Livraria.infrastructure.book.gateways.BookEntityMapper;
 
@@ -10,7 +11,7 @@ public class AuthorEntityMapper {
     }
 
     public static Author toDomain(AuthorEntity authorEntity) {
-        return Author.builder()
+       return Author.builder()
                 .withName(authorEntity.getName())
                 .withBirthday(authorEntity.getBirthday())
                 .withBooks(BookEntityMapper.toDomain(authorEntity.getBooks()))

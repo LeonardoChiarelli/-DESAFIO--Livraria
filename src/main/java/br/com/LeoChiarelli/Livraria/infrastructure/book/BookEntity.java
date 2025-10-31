@@ -3,10 +3,7 @@ package br.com.LeoChiarelli.Livraria.infrastructure.book;
 import br.com.LeoChiarelli.Livraria.application.book.RegistryBookDTO;
 import br.com.LeoChiarelli.Livraria.infrastructure.author.AuthorEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 

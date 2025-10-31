@@ -2,6 +2,7 @@ package br.com.LeoChiarelli.Livraria.infrastructure.library;
 
 import br.com.LeoChiarelli.Livraria.infrastructure.author.AuthorEntity;
 import br.com.LeoChiarelli.Livraria.infrastructure.book.BookEntity;
+import br.com.LeoChiarelli.Livraria.infrastructure.loan.LoanEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -19,7 +20,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 public class LibraryEntity {
 
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

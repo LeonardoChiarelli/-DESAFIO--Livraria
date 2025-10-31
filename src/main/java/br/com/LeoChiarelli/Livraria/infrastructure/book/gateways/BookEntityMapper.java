@@ -6,6 +6,7 @@ import br.com.LeoChiarelli.Livraria.infrastructure.author.gateways.AuthorEntityM
 import br.com.LeoChiarelli.Livraria.infrastructure.book.BookEntity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookEntityMapper {
@@ -16,15 +17,24 @@ public class BookEntityMapper {
     }
 
     public static List<Book> toDomain(List<BookEntity> bookEntities) {
-        return bookEntities.stream()
-                .map(bookEntity -> { return Book.builder()
-                        .withTitle(bookEntity.getTitle())
-                        .withAuthor(Author.builder()
-                                .withName(bookEntity.getAuthor().getName())
-                                .withBirthday(bookEntity.getAuthor().getBirthday())
-                                .build())
-                        .withUpdateDate(bookEntity.getUpdateDate())
-                        .build(); })
-                .toList();
+
+        List<Book> books = new ArrayList<>();
+
+        for (BookEntity bookEntity : bookEntities) {
+            var author = Author.builder()
+                    .withName(bookEntity.getAuthor().getName())
+                    .withBirthday(bookEntity.getAuthor().getBirthday())
+                    .build();
+
+            books.add(Book.builder()
+                    .withTitle(bookEntity.getTitle())
+                    .withAuthor(author)
+                    .withUpdateDate(bookEntity.getUpdateDate())
+                    .build());
+
+            author.addBooks(books);
+        }
+
+        return books;
     }
 }

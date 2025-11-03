@@ -2,10 +2,13 @@ package br.com.LeoChiarelli.Livraria.infrastructure.book;
 
 import br.com.LeoChiarelli.Livraria.application.book.RegistryBookDTO;
 import br.com.LeoChiarelli.Livraria.infrastructure.author.AuthorEntity;
+import br.com.LeoChiarelli.Livraria.infrastructure.library.LibraryEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Book")
 @Table(name = "books")
@@ -26,6 +29,9 @@ public class BookEntity {
     private boolean available;
     private LocalDate registrationDate;
     private LocalDate updateDate;
+
+    @ManyToMany(mappedBy = "books")
+    private Set<LibraryEntity> libraries = new HashSet<>();
 
     public BookEntity(RegistryBookDTO dto) {
         this.title = dto.title();

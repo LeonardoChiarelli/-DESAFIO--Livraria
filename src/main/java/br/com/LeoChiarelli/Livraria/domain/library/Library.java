@@ -29,9 +29,9 @@ public class Library {
         return new LibraryBuilder();
     }
 
-    public void doALoan(Book book, Client client) {
+    public void doALoan(List<Book> books, Client client) {
         this.loans.add(Loan.builder()
-                .withBook(book)
+                .withBooks(books)
                 .withClient(client)
                 .build());
     }

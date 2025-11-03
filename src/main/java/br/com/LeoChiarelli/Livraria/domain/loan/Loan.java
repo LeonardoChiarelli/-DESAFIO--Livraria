@@ -5,21 +5,23 @@ import br.com.LeoChiarelli.Livraria.domain.book.Book;
 import br.com.LeoChiarelli.Livraria.domain.client.Client;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Loan {
     private final UUID uuid;
-    private final Book book;
+    private final List<Book> books = new ArrayList<>();
     private final Client client;
     private final LocalDate loanDate;
     private final LocalDate devolutionDate;
 
-    private Loan(Book book, Client client) {
-        if (book == null || client == null) {
+    private Loan(List<Book> books, Client client) {
+        if (books == null || client == null) {
             throw new ValidationException("All core loan details must be provided.");
         }
         this.uuid = UUID.randomUUID();
-        this.book = book;
+        this.books.addAll(books);
         this. client = client;
         this. loanDate = LocalDate.now();
         this.devolutionDate = LocalDate.now().plusDays(7);
@@ -33,8 +35,8 @@ public class Loan {
         return uuid;
     }
 
-    public Book getBook() {
-        return book;
+    public List<Book> getBooks() {
+        return books;
     }
 
     public Client getClient() {
@@ -54,27 +56,25 @@ public class Loan {
         return String.format("""
                 UUID: %s
                 Book: %s
-                Author: %s
                 Client: %s
                 Loan Date: %s
                 Devolution Date: %s
                 """,
                 getUuid(),
-                getBook().getTitle(),
-                getBook().getAuthor().getName(),
+                getBooks(),
                 getClient().getName(),
                 getLoanDate(),
                 getDevolutionDate());
     }
 
     public static class LoanBuilder {
-        private Book book;
+        private List<Book> books = new ArrayList<>();
         private Client client;
 
         public LoanBuilder() {}
 
-        public LoanBuilder withBook(Book book) {
-            this.book = book;
+        public LoanBuilder withBooks(List<Book> books) {
+            this.books.addAll(books);
             return this;
         }
 
@@ -84,7 +84,7 @@ public class Loan {
         }
 
         public Loan build() {
-            if (book == null) {
+            if (books == null) {
                 throw new ValidationException("Loan book must be provided.");
             }
 
@@ -92,7 +92,7 @@ public class Loan {
                 throw new ValidationException("Loan client must be provided.");
             }
 
-            return new Loan(this.book, this.client);
+            return new Loan(this.books, this.client);
         }
     }
 }

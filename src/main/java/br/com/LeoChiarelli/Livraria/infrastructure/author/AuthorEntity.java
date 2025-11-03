@@ -2,6 +2,7 @@ package br.com.LeoChiarelli.Livraria.infrastructure.author;
 
 import br.com.LeoChiarelli.Livraria.application.author.RegistryAuthorDTO;
 import br.com.LeoChiarelli.Livraria.infrastructure.book.BookEntity;
+import br.com.LeoChiarelli.Livraria.infrastructure.library.LibraryEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -10,7 +11,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "Author")
 @Table(name = "authors")
@@ -29,6 +32,9 @@ public class AuthorEntity {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<BookEntity> books = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "authors")
+    private Set<LibraryEntity> libraries = new HashSet<>();
 
     public AuthorEntity(RegistryAuthorDTO dto) {
         this.name = dto.name();

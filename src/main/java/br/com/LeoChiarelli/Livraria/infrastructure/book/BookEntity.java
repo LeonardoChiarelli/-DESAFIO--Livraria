@@ -35,7 +35,7 @@ public class BookEntity {
 
     public BookEntity(RegistryBookDTO dto) {
         this.title = dto.title();
-        this.author = new AuthorEntity(dto.author());
+        this.author = dto.author();
         this.available = true;
         this.registrationDate = LocalDate.now();
         this.updateDate = dto.updateDate();
